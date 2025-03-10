@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color:#222;
+}
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+
+.top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid #5900ff;
+}
+
+.connect-btn {
+  background: #5900ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.connect-btn:hover {
+  background: #8956f7;
+}
+
+.submit-btn:hover {
+  background: #218838;
+}
+
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Form Container */
+.form-container {
+  position: relative;
+  background: #222;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px rgba(65, 30, 151, 0.695);
+  width: 400px;
+  text-align: center;
+  color: white;
+}
+
+
+/* Form Title */
+.form-title {
+  font-size: 20px;
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+/* Input Field */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: white;
+}
+
+/* Save Button */
+.save-btn {
+  width: 100%;
+  background: #5900ff;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.save-btn:hover {
+  background: #8956f7;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+  color: white;
+}
