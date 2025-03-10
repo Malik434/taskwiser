@@ -64,9 +64,9 @@ function App() {
             {dropdownOpen && (
               <div className="dropdown-menu">
                 <button onClick={() => alert("Settings Clicked!")}>
-                  ⚙️ Settings
+                  Settings
                 </button>
-                <button onClick={logout}>🚪 Logout</button>
+                <button onClick={logout}>Logout</button>
               </div>
             )}
           </div>
