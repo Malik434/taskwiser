@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserProvider, verifyMessage } from "ethers";
 import Web3Modal from "web3modal";
 import { db } from "./firebase";
@@ -13,6 +13,17 @@ function App() {
   const [userProfile, setUserProfile] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  useEffect(() => {
+    const savedAddress = localStorage.getItem("walletAddress");
+    const savedProfile = localStorage.getItem("userProfile");
+
+    if (savedAddress) {
+      setWalletAddress(savedAddress);
+    }
+    if (savedProfile) {
+      setUserProfile(JSON.parse(savedProfile));
+    }
+  }, []);
 
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
@@ -33,12 +44,14 @@ function App() {
     console.log("Signed Message:", signature);
 
     setWalletAddress(address);
+    localStorage.setItem("walletAddress", address);
 
     const userRef = doc(db, "users", address);
     const userSnap = await getDoc(userRef);
 
     if (userSnap.exists()) {
       setUserProfile(userSnap.data());
+      localStorage.setItem("userProfile", JSON.stringify(userSnap.data()));
     } else {
       setShowForm(true);
     }
@@ -46,8 +59,16 @@ function App() {
 
   const logout = () => {
     setWalletAddress("");
+    localStorage.removeItem("walletAddress");
+    localStorage.removeItem("userProfile");
     setUserProfile(null);
     setDropdownOpen(false);
+  };
+
+  const handleProfileCreated = (profileData) => {
+    setUserProfile(profileData);
+    localStorage.setItem("userProfile", JSON.stringify(profileData));
+    setShowForm(false);
   };
 
   return (
@@ -86,6 +107,7 @@ function App() {
           {showForm && (
             <ProfileForm
               walletAddress={walletAddress}
+              onProfileCreated={handleProfileCreated}
               closeForm={() => setShowForm(false)}
             />
           )}

@@ -5,7 +5,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
-const ProfileForm = ({ walletAddress, closeForm }) => {
+const ProfileForm = ({ walletAddress, closeForm, onProfileCreated }) => {
   const [username, setUsername] = useState("");
   const [profilePic, setProfilePic] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -36,6 +36,11 @@ const ProfileForm = ({ walletAddress, closeForm }) => {
     // Upload profile picture to IPFS
     const ipfsCID = await uploadToIPFS(profilePic);
 
+    const userProfileData = {
+      username: username,
+      profilePic: ipfsCID,
+    };
+
     // Store in Firebase
     await setDoc(doc(db, "users", walletAddress), {
       username: username,
@@ -43,6 +48,7 @@ const ProfileForm = ({ walletAddress, closeForm }) => {
     });
 
     alert("Profile created successfully!");
+    onProfileCreated(userProfileData);
     setLoading(false);
     window.location.reload();
   };
