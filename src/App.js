@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserProvider } from "ethers";
+import { BrowserProvider, verifyMessage } from "ethers";
 import Web3Modal from "web3modal";
 import { db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
@@ -12,6 +12,7 @@ function App() {
   const [walletAddress, setWalletAddress] = useState("");
   const [userProfile, setUserProfile] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const connectWallet = async () => {
     const web3Modal = new Web3Modal();
@@ -23,6 +24,11 @@ function App() {
     const address = await signer.getAddress();
     const message = `Login authentication at ${new Date().toISOString()}`;
     const signature = await signer.signMessage(message);
+    const recoveredAddress = verifyMessage(message, signature);
+    if (recoveredAddress.toLowerCase() !== address.toLowerCase()) {
+      console.error("Signature verification failed!");
+      return;
+    }
 
     console.log("Signed Message:", signature);
 
@@ -38,21 +44,32 @@ function App() {
     }
   };
 
+  const logout = () => {
+    setWalletAddress("");
+    setUserProfile(null);
+    setDropdownOpen(false);
+  };
+
   return (
     <div>
-      {/* <button className="connect-btn" onClick={connectWallet}>
-        {walletAddress
-          ? `Connected: ${walletAddress.slice(0, 4)}`
-          : "Connect Wallet"}
-      </button> */}
-
       <div className="top-right">
         {userProfile ? (
-          <img
-            src={`https://ipfs.io/ipfs/${userProfile.profilePic}`}
-            alt="Profile"
-            className="profile-pic"
-          />
+          <div className="profile-container">
+            <img
+              src={`https://ipfs.io/ipfs/${userProfile.profilePic}`}
+              alt="Profile"
+              className="profile-pic"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            />
+            {dropdownOpen && (
+              <div className="dropdown-menu">
+                <button onClick={() => alert("Settings Clicked!")}>
+                  ⚙️ Settings
+                </button>
+                <button onClick={logout}>🚪 Logout</button>
+              </div>
+            )}
+          </div>
         ) : (
           <button className="connect-btn" onClick={connectWallet}>
             {walletAddress
