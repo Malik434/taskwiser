@@ -54,6 +54,12 @@ function App() {
     setDropdownOpen(false);
   };
 
+  const handleProfileCreated = (profileData) => {
+    setUserProfile(profileData);
+    localStorage.setItem("userProfile", JSON.stringify(profileData));
+    setShowForm(false);
+  };
+
   return (
     <div>
       <div className="top-right">
@@ -94,18 +100,18 @@ function App() {
             </Routes>
           </Router>
         </div>
-) : (
-  <AnimatePresence>
-    {showForm && (
-      <ProfileForm
-        walletAddress={walletAddress}
-        onProfileCreated={handleProfileCreated}
-        closeForm={() => setShowForm(false)}
-      />
-    )}
-  </AnimatePresence>
-)}
-</div>
+      ) : (
+        <AnimatePresence>
+          {showForm && (
+            <ProfileForm
+              walletAddress={walletAddress}
+              onProfileCreated={handleProfileCreated}
+              closeForm={() => setShowForm(false)}
+            />
+          )}
+        </AnimatePresence>
+      )}
+    </div>
   );
 }
 
