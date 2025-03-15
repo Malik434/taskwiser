@@ -1,4 +1,4 @@
-# Wallet Connection & Profile Management App
+# WEB3 Task Wiser DAPP 
 
 This is a React-based project that integrates **Web3Modal** and **ethers.js** for wallet connections and **Firebase** for user profile management.
 
