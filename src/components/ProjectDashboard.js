@@ -7,6 +7,7 @@ import "../styles/ProjectDashboard.css"; // Ensure the CSS file is imported
 const ProjectDashboard = () => {
   const [projects, setProjects] = useState([]);
   const [projectName, setProjectName] = useState("");
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,31 +27,52 @@ const ProjectDashboard = () => {
     });
     setProjects([...projects, { id: docRef.id, name: projectName }]);
     setProjectName("");
+    setShowModal(false);
   };
 
   return (
     <div className="dashboard-container">
-      <h2>Project Dashboard</h2>
-      <input
-        type="text"
-        className="project-input"
-        placeholder="New Project Name"
-        value={projectName}
-        onChange={(e) => setProjectName(e.target.value)}
-      />
-      <button className="create-project-btn" onClick={createProject}>
-        Create Project
+      <div className="project-list-container">
+        <ul className="project-list">
+          {projects.map((project) => (
+            <li
+              key={project.id}
+              onClick={() => navigate(`/project/${project.id}`)}
+            >
+              {project.name.charAt(0).toUpperCase()}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button className="add-project-btn" onClick={() => setShowModal(true)}>
+        +
       </button>
-      <ul className="project-list">
-        {projects.map((project) => (
-          <li
-            key={project.id}
-            onClick={() => navigate(`/project/${project.id}`)}
-          >
-            {project.name}
-          </li>
-        ))}
-      </ul>
+
+      {showModal && (
+        <div className="project-modal-overlay">
+          <div className="project-modal-container">
+            <h3>Create New Project</h3>
+            <input
+              type="text"
+              className="project-input"
+              placeholder="Enter project name"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && createProject()}
+            />
+            <button className="create-project-btn" onClick={createProject}>
+              Create
+            </button>
+            <button
+              className="project-close-modal-btn"
+              onClick={() => setShowModal(false)}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
