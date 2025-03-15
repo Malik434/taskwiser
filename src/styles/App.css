@@ -11,14 +11,18 @@
   display: inline-block;
 }
 
-/* Profile pic as a circular image, clickable */
 .profile-pic {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   cursor: pointer;
+  border: 2px solid white;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
+.profile-pic:hover {
+  transform: scale(1.1);
+}
 /* The dropdown menu that appears when clicking the pic */
 .dropdown-menu {
   position: absolute;
@@ -221,4 +225,31 @@ body {
 
 .dropdown-menu button:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.project-dashboard {
+  width: 250px;
+  background-color: #f8f9fa;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.5rem;
+  color: #888;
 }

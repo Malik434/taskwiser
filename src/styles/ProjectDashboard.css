@@ -8,6 +8,16 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
 } */
+.project-dashboard-container {
+  flex: 1;
+  max-width: 800px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
 
 h2 {
   text-align: center;
@@ -27,7 +37,7 @@ h2 {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: #5900ff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -37,25 +47,29 @@ h2 {
 }
 
 .create-project-btn:hover {
-  background-color: #0056b3;
+  background-color: #8956f7;
 }
 
+/* Sidebar Project List with Fixed Home Icon */
 .project-list-container {
-  width: 80px;
+  width: 90px;
   position: fixed;
-  left: 10px;
-  top: 46%;
-  transform: translateY(-50%);
+  left: 3px;
+  top: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
-  max-height: 90vh;
+  gap: 15px;
+  max-height: 86vh;
   overflow-y: auto;
+  background: #1e1e1e;
+  padding-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .project-list-container::-webkit-scrollbar {
-  width: 5px;
+  width: 8px;
   background: transparent;
 }
 
@@ -67,6 +81,25 @@ h2 {
 .project-list-container::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
+}
+
+/* Fixed Home Icon */
+.home-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(45deg, #007bff, #5900ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.home-icon:hover {
+  background: linear-gradient(45deg, #5900ff, #007bff);
+  transform: scale(1.1);
 }
 
 .project-list {
@@ -81,21 +114,22 @@ h2 {
 .project-list li {
   width: 60px;
   height: 60px;
-  background: #f9f9f9;
+  background: #2a2a2a;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
-  border: 3px solid #ddd;
+  border: 3px solid #444;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
+  color: white;
 }
 
 .project-list li:hover {
-  background: #e0e0e0;
+  background: #444;
   transform: scale(1.1);
 }
 

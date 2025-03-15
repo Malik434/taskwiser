@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import "../styles/ProjectDashboard.css"; // Ensure the CSS file is imported
+import { Home } from "lucide-react";
+import "../styles/ProjectDashboard.css";
 
 const ProjectDashboard = () => {
   const [projects, setProjects] = useState([]);
@@ -31,9 +32,12 @@ const ProjectDashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div>
       <div className="project-list-container">
         <ul className="project-list">
+          <li onClick={() => navigate("/")} className="home-icon">
+            <Home />
+          </li>
           {projects.map((project) => (
             <li
               key={project.id}
